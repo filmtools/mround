@@ -8,17 +8,18 @@
 [![Build Status](https://scrutinizer-ci.com/g/filmtools/mround/badges/build.png?b=master)](https://scrutinizer-ci.com/g/filmtools/mround/build-status/master)
 
 
+**What's in this package?** This package offers mround in two flavours, function **mround** and callable **MRounder** class. Please see the desktop software documentation for [Excel](https://support.office.com/en-us/article/mround-function-c299c3b0-15a5-426d-aa4b-d2d5b3baf427), [LibreOffice](https://help.libreoffice.org/Calc/Mathematical_Functions#MROUND), or [OpenOffice](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_MROUND_function) and the original PHP implementation by Nasser Hekmati on [StackOverflow.](https://stackoverflow.com/a/48643210/3143771)
+
+
+
+
 ## Installation
 
 ```bash
 $ composer require filmtools/mround
 ```
 
-## Examples
-
-This package offers mround in two flavours, function **mround** and callable **MRounder** class. Both return a number rounded to the nearest multiple of another number. See the official *mround* function documentations: [Excel](https://support.office.com/en-us/article/mround-function-c299c3b0-15a5-426d-aa4b-d2d5b3baf427) · [LibreOffice](https://help.libreoffice.org/Calc/Mathematical_Functions#MROUND) · [OpenOffice](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_MROUND_function)
-
-### Function mround
+## Function mround
 
 The function is namespaced, so you will have to mention it in your `use` statements.
 
@@ -39,7 +40,7 @@ echo mround( 11.1, 1/3);
 11
 ```
 
-### Callable MRounder
+## Callable MRounder
 
 ```php
 <?php
