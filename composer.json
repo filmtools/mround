@@ -1,0 +1,39 @@
+{
+	"name":        "filmtools/mround",
+
+	"type":        "library",
+	"description": "PHP implementation of Excel's mround function",
+	"license":     "MIT",
+
+	"authors": [
+		{
+			"name":  "Carsten Witt",
+			"role":  "Developer"
+		}
+	],
+
+	"autoload": {
+		"psr-4": {
+			"FilmTools\\MRounder\\": "src/"
+		},
+		"files": [
+			"src/functions.php"
+		]
+	},
+
+	"autoload-dev": {
+		"psr-4": {
+			"tests\\": "tests/src"
+		}
+	},
+
+	"require": {
+
+	},
+
+	"require-dev": {
+		"php-coveralls/php-coveralls": "^2.0",
+		"phpunit/phpunit": "^5.7|^6.0"
+	}
+}
+
