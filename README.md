@@ -112,9 +112,11 @@ catch (MRoundExceptionInterface $e) {
 
 
 
-## Unit testing
+## Development and Unit testing
 
 ```bash
+$ git clone https://github.com/filmtools/mround.git
+$ composer install
 $ vendor/bin/phpunit
 ```
 
