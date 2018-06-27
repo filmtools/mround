@@ -1,6 +1,6 @@
 # FilmTools · mround
 
-**PHP implementation for Excel's mround function**
+**PHP implementation for Excel's mround function: Returns a number rounded to the nearest multiple of another number.**
 
 [![Build Status](https://travis-ci.org/filmtools/mround.svg?branch=master)](https://travis-ci.org/filmtools/mround)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/filmtools/mround/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/filmtools/mround/?branch=master)
@@ -16,7 +16,11 @@ $ composer require filmtools/mround
 
 ## Examples
 
+This package offers mround in two flavours, function **mround** and callable **MRounder** class. Both return a number rounded to the nearest multiple of another number. See the official *mround* function documentations: [Excel](https://support.office.com/en-us/article/mround-function-c299c3b0-15a5-426d-aa4b-d2d5b3baf427) · [LibreOffice](https://help.libreoffice.org/Calc/Mathematical_Functions#MROUND) · [OpenOffice](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_MROUND_function)
+
 ### Function mround
+
+The function is namespaced, so you will have to mention it in your `use` statements.
 
 ```php
 <?php
@@ -54,9 +58,6 @@ echo mround( 99, 0);
 **Arrays are welcome!**
 
 ```php
-<?php
-use FilmTools\MRounder\MRounder;
-
 // Build an array with equal keys and values:
 $steps = range(0, 1, 0.1);
 $numbers = array_combine($steps, $steps);
