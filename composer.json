@@ -1,11 +1,17 @@
 {
-	"name":        "filmtools/mround",
+	"name": "filmtools/mround",
 
-	"type":        "library",
+	"type": "library",
+
 	"description": "Returns a number rounded to the nearest multiple of another number (mround/Excel)",
-	"keywords": [ "mround", "round", "rounding", "numbers", "Excel", "LibreOffice", "OpenOffice"],
 
-	"license":     "MIT",
+	"keywords": [ "mround", "round", "rounding", "numbers", "Excel", "LibreOffice", "OpenOffice", "math"],
+
+	"license": "MIT",
+
+  "support": {
+    "issues": "https://github.com/filmtools/mround/issues"
+  },
 
 	"authors": [
 		{
@@ -37,8 +43,9 @@
 		"php-coveralls/php-coveralls": "^2.0",
 		"phpunit/phpunit": "^5.7|^6.0"
 	},
-  "scripts": {
-        "test": "phpunit"
+
+	"scripts": {
+		"test": "phpunit"
 	}
 }
 
