@@ -2,7 +2,9 @@
 	"name":        "filmtools/mround",
 
 	"type":        "library",
-	"description": "PHP implementation of Excel's mround function",
+	"description": "Returns a number rounded to the nearest multiple of another number (mround/Excel)",
+	"keywords": [ "mround", "round", "rounding", "numbers", "Excel", "LibreOffice", "OpenOffice"],
+
 	"license":     "MIT",
 
 	"authors": [
@@ -34,6 +36,9 @@
 	"require-dev": {
 		"php-coveralls/php-coveralls": "^2.0",
 		"phpunit/phpunit": "^5.7|^6.0"
+	},
+  "scripts": {
+        "test": "phpunit"
 	}
 }
 
