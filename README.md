@@ -119,6 +119,10 @@ catch (MRoundExceptionInterface $e) {
 ```bash
 $ git clone https://github.com/filmtools/mround.git
 $ composer install
+
+# either, or, and:
+$ composer phpunit
 $ vendor/bin/phpunit
+
 ```
 
