@@ -3,9 +3,9 @@
 
 	"type": "library",
 
-	"description": "Returns a number rounded to the nearest multiple of another number (mround/Excel)",
+	"description": "Rounds a number to the nearest multiple of another number (mround, ceiling, floor)",
 
-	"keywords": [ "mround", "round", "rounding", "numbers", "Excel", "LibreOffice", "OpenOffice", "math"],
+	"keywords": [ "mround", "round", "rounding", "ceil", "ceiling", "floor", "numbers", "Excel", "LibreOffice", "OpenOffice", "math"],
 
 	"license": "MIT",
 
