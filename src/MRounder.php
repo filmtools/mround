@@ -72,15 +72,12 @@ class MRounder
             switch ($this->mode):
                 case static::ROUND:
                     return mround( $number, $this->multiple );
-                    break;
 
                 case static::FLOOR:
                     return mfloor( $number, $this->multiple );
-                    break;
 
                 case static::CEIL:
                     return mceil( $number, $this->multiple );
-                    break;
 
                 default:
                     throw new MRoundUnexpectedValueException("Unexpected round mode value");
