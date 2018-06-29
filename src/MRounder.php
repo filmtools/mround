@@ -12,20 +12,50 @@ class MRounder
 {
 
     /**
+     * Default rounding behaviour
+     * @var string
+     */
+    const FLOOR="floor";
+
+    /**
+     * Turn on CEILING functionality
+     * @var string
+     */
+    const CEIL="ceil";
+
+    /**
+     * Turn on FLOOR functionality
+     * @var string
+     */
+    const ROUND="round";
+
+    /**
      * @var numeric
      */
     public $multiple;
+
+    /**
+     *
+     * @var string
+     */
+    public $mode;
 
 
     /**
      * @param numeric $multiple
      */
-    public function __construct( $multiple = 1 )
+    public function __construct( $multiple = 1, $mode = null )
     {
         if (is_numeric($multiple))
             $this->multiple = $multiple;
         else
-            throw new MRoundInvalidArgumentException("Parameter must be numeric.");
+            throw new MRoundInvalidArgumentException("Parameter 'multiple' must be numeric.");
+
+
+        if (in_array($mode, [ null, static::FLOOR, static::CEIL, static::ROUND ]))
+            $this->mode = $mode ?: static::ROUND;
+        else
+            throw new MRoundInvalidArgumentException("Parameter 'mode' must be one of 'round', floor', or 'ceil'.");
     }
 
 
@@ -36,9 +66,27 @@ class MRounder
     public function __invoke( $number )
     {
         if (is_numeric($number)):
-            return ($this->multiple <> 0)
-            ? mround( $number, $this->multiple)
-            : 0;
+            if ($this->multiple == 0)
+                return 0;
+
+            switch ($this->mode):
+                case static::ROUND:
+                    return mround( $number, $this->multiple );
+                    break;
+
+                case static::FLOOR:
+                    return mfloor( $number, $this->multiple );
+                    break;
+
+                case static::CEIL:
+                    return mceil( $number, $this->multiple );
+                    break;
+
+                default:
+                    throw new MRoundUnexpectedValueException("Unexpected round mode value");
+
+            endswitch;
+
         elseif (is_array( $number)):
             return array_map($this, $number);
         endif;
