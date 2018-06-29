@@ -7,8 +7,20 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/filmtools/mround/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/filmtools/mround/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/filmtools/mround/badges/build.png?b=master)](https://scrutinizer-ci.com/g/filmtools/mround/build-status/master)
 
+## What's in this package?
 
-**What's in this package?** This package offers mround in two flavours, function **mround** and callable **MRounder** class. Please see the desktop software documentation for [Excel](https://support.office.com/en-us/article/mround-function-c299c3b0-15a5-426d-aa4b-d2d5b3baf427), [LibreOffice](https://help.libreoffice.org/Calc/Mathematical_Functions#MROUND), or [OpenOffice](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_MROUND_function) and the original PHP implementation by Nasser Hekmati on [StackOverflow.](https://stackoverflow.com/a/48643210/3143771)
+**Rounding to a nearest multiple or fraction**
+with the ***mround*** function, corresponding to MROUND
+
+**Rounding *down* to a nearest multiple or fraction**
+with the ***mfloor*** function, corresponding to FLOOR
+
+**Rounding *up* to a nearest multiple or fraction**
+with the ***mceil*** function, corresponding to CEILING
+
+All these are bundled in a callable **MRounder** class; the rounding behaviour is defined by an optional contructor parameter.
+
+Please see the desktop software documentation for [Excel](https://support.office.com/en-us/article/mround-function-c299c3b0-15a5-426d-aa4b-d2d5b3baf427), [LibreOffice](https://help.libreoffice.org/Calc/Mathematical_Functions#MROUND), or [OpenOffice](https://wiki.openoffice.org/wiki/Documentation/How_Tos/Calc:_MROUND_function) and the original PHP implementation by Nasser Hekmati on [StackOverflow.](https://stackoverflow.com/a/48643210/3143771)
 
 
 
@@ -19,7 +31,7 @@
 $ composer require filmtools/mround
 ```
 
-## Function mround
+## mround · normal rounding 
 
 The function is namespaced, so you will have to mention it in your `use` statements.
 
@@ -40,7 +52,30 @@ echo mround( 11.1, 1/3);
 11
 ```
 
-## Callable MRounder
+## mfloor · round down
+
+```php
+<?php
+use function FilmTools\MRounder\mfloor;
+
+echo mfloor(   59, 10);   // 50
+echo mfloor(  2.4, 0.5);  // 2.0
+```
+
+
+## mceil · round mceil
+
+```php
+<?php
+use function FilmTools\MRounder\mceil;
+
+echo mceil(   51, 10);   // 60
+echo mceil(  2.4, 0.5);  // 2.5
+```
+
+
+
+## MRounder · Callable class
 
 ```php
 <?php
@@ -48,12 +83,22 @@ use FilmTools\MRounder\MRounder;
 
 // Instantiate with the desired multiple
 $mrounder = new MRounder( 0.5 );
-echo $mrounder( 2.4 );
-// 2.5
+$mrounder = new MRounder( 0.5, MRounder::ROUND );
+$mrounder = new MRounder( 0.5, "round" );
+echo $mrounder( 2.4 ); // 2.5
 
-// You will find this interesting:
-echo mround( 99, 0);    
-// 0    
+// Down-rounder
+$round_down = new MRounder( 0.5, MRounder::FLOOR );
+$round_down = new MRounder( 0.5, "floor" );
+echo $round_down( 2.4 ); // 2.0
+
+// Up-rounder
+$round_up = new MRounder( 0.5, MRounder::CEIL );
+$round_up = new MRounder( 0.5, "ceil" );
+echo $round_up( 7.2 ); // 7.5
+
+// Bonus – You will find this interesting:
+echo mround( 99, 0);  // 0    
 ```
 
 **Arrays are welcome!**
