@@ -31,28 +31,39 @@ Please see the desktop software documentation for [Excel](https://support.office
 $ composer require filmtools/mround
 ```
 
-## mround · normal rounding 
 
-The function is namespaced, so you will have to mention it in your `use` statements.
+
+## The functions 
+
+The functions are namespaced, so you will have to mention it in your `use` statements:
+
+```php
+use function FilmTools\MRounder\mround;
+use function FilmTools\MRounder\mfloor;
+use function FilmTools\MRounder\mceil;
+```
+
+The functions all round *num* to the nearest multiple of *base*; their signature is:
+
+```
+fn( float $num, float $base);
+```
+
+
+
+### mround · “normal” rounding 
 
 ```php
 <?php
 use function FilmTools\MRounder\mround;
 
-// Try some numbers
-echo mround(   12,  10);
-echo mround(  2.4, 0.5);
-echo mround( 11.2, 1/3);
-echo mround( 11.1, 1/3);
-
-// Output:
-10
-2.5
-11.333333333333
-11
+echo mround(   12,  10); // 10
+echo mround(  2.4, 0.5); // 2.5
+echo mround( 11.2, 1/3); // 11.333333333333
+echo mround( 11.1, 1/3); // 11
 ```
 
-## mfloor · round down
+### mfloor · round down
 
 ```php
 <?php
@@ -63,7 +74,7 @@ echo mfloor(  2.4, 0.5);  // 2.0
 ```
 
 
-## mceil · round mceil
+### mceil · round mceil
 
 ```php
 <?php
@@ -81,7 +92,7 @@ echo mceil(  2.4, 0.5);  // 2.5
 <?php
 use FilmTools\MRounder\MRounder;
 
-// Instantiate with the desired multiple
+// Instantiate with the desired base multiple
 $mrounder = new MRounder( 0.5 );
 $mrounder = new MRounder( 0.5, MRounder::ROUND );
 $mrounder = new MRounder( 0.5, "round" );
@@ -122,7 +133,7 @@ Array
     [0.2] => 0.16666666666667
     [0.3] => 0.33333333333333
     [0.4] => 0.33333333333333
-    [0.5] => 0.5 # funny, but equals 2/6 actually.
+    [0.5] => 0.5 # funny, but of course equals 2/6.
     [0.6] => 0.66666666666667
     [0.7] => 0.66666666666667
     [0.8] => 0.83333333333333
@@ -151,7 +162,7 @@ try {
 }
 catch (MRoundExceptionInterface $e) {
     echo get_class( $e );
-	echo $e->getMessage();
+	  echo $e->getMessage();
     // MRoundInvalidArgumentException
     // Parameter must be numeric.
 }
@@ -163,6 +174,7 @@ catch (MRoundExceptionInterface $e) {
 
 ```bash
 $ git clone https://github.com/filmtools/mround.git
+$ cd mround
 $ composer install
 
 # either, or, and:
