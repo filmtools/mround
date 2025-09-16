@@ -1,10 +1,9 @@
 # .scrutinizer.yml
 
 build:
-
     dependencies:
         before:
-            - rm composer.lock
+            - rm -f composer.lock
 
     tests:
         override:
@@ -12,10 +11,9 @@ build:
                 command: 'vendor/bin/phpunit --coverage-clover=coverage'
                 coverage:
                     file: 'coverage'
-                    format: 'php-clover'
+                    format: 'clover'
 
     nodes:
-
         php83:
             environment:
                 php: 8.3
@@ -23,7 +21,6 @@ build:
         php84:
             environment:
                 php: 8.4
-
 
 checks:
     php:
@@ -33,4 +30,5 @@ checks:
 filter:
     excluded_paths:
         - tests/*
+        - vendor/*
 
