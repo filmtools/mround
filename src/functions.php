@@ -1,6 +1,15 @@
 <?php
-namespace FilmTools\MRounder;
 
+/**
+ * This file is part of filmtools/mround
+ *
+ * Rounds a number to the nearest multiple of another number (mround, ceiling, floor)
+ *
+ * For the full copyright and license information, please view the LICENSE.txt
+ * file that was distributed with this source code.
+ */
+
+namespace FilmTools\MRounder;
 
 /**
  * Returns the given number rounded to the given multiple.
@@ -8,29 +17,26 @@ namespace FilmTools\MRounder;
  * PHP implementation by Nasser Hekmati on StackOverflow
  * @see https://stackoverflow.com/a/48643210/3143771
  * @see https://support.office.com/en-us/article/mround-function-c299c3b0-15a5-426d-aa4b-d2d5b3baf427
- *
- * @param int|float $number
- * @param int|float $multiple
  */
-function mround( $number, $multiple)
+function mround(mixed $number, mixed $multiple): float
 {
-    if (!is_numeric($number))
+    if (!is_numeric($number)) {
         throw new MRoundInvalidArgumentException("First parameter must be numeric.");
+    }
 
-    if (!is_numeric($multiple))
+    if (!is_numeric($multiple)) {
         throw new MRoundInvalidArgumentException("Second parameter 'multiple' must be numeric.");
-    elseif ( $multiple == 0)
+    } elseif ($multiple == 0) {
         return 0;
+    }
 
-    return round( $number/$multiple, 0 ) * $multiple;
+    return round($number / $multiple, 0) * $multiple;
 
 }
 
 // This snippet is not required any longer since we're in namespace here.
 # if (!function_exists("mround")):
 # endif;
-
-
 /**
  * Returns the given number rounded up to the given multiple.
  *
@@ -38,21 +44,20 @@ function mround( $number, $multiple)
  *
  * @see https://support.office.com/en-us/article/ceiling-function-0a5cd7c8-0720-4f0a-bd2c-c943e510899f
  * @see https://help.libreoffice.org/Calc/Mathematical_Functions#CEILING
- *
- * @param int|float $number
- * @param int|float $multiple
  */
-function mceil( $number, $multiple)
+function mceil(mixed $number, mixed $multiple): float
 {
-    if (!is_numeric($number))
+    if (!is_numeric($number)) {
         throw new MRoundInvalidArgumentException("First parameter must be numeric.");
+    }
 
-    if (!is_numeric($multiple))
+    if (!is_numeric($multiple)) {
         throw new MRoundInvalidArgumentException("Second parameter 'multiple' must be numeric.");
-    elseif ( $multiple == 0)
+    } elseif ($multiple == 0) {
         return 0;
+    }
 
-    return ceil( $number/$multiple ) * $multiple;
+    return ceil($number / $multiple) * $multiple;
 }
 
 
@@ -63,19 +68,18 @@ function mceil( $number, $multiple)
  *
  * @see https://support.office.com/en-us/article/floor-function-14bb497c-24f2-4e04-b327-b0b4de5a8886
  * @see https://help.libreoffice.org/Calc/Mathematical_Functions#FLOOR
- *
- * @param int|float $number
- * @param int|float $multiple
  */
-function mfloor( $number, $multiple)
+function mfloor(mixed $number, mixed $multiple): float
 {
-    if (!is_numeric($number))
+    if (!is_numeric($number)) {
         throw new MRoundInvalidArgumentException("First parameter must be numeric.");
+    }
 
-    if (!is_numeric($multiple))
+    if (!is_numeric($multiple)) {
         throw new MRoundInvalidArgumentException("Second parameter 'multiple' must be numeric.");
-    elseif ( $multiple == 0)
+    } elseif ($multiple == 0) {
         return 0;
+    }
 
-    return floor( $number/$multiple ) * $multiple;
+    return floor($number / $multiple) * $multiple;
 }

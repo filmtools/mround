@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * This file is part of filmtools/mround
+ *
+ * Rounds a number to the nearest multiple of another number (mround, ceiling, floor)
+ *
+ * For the full copyright and license information, please view the LICENSE.txt
+ * file that was distributed with this source code.
+ */
+
 namespace FilmTools\MRounder;
 
 /**
@@ -10,24 +20,23 @@ namespace FilmTools\MRounder;
  */
 class MRounder
 {
-
     /**
      * Default rounding behaviour
      * @var string
      */
-    const FLOOR="floor";
+    public const FLOOR = "floor";
 
     /**
      * Turn on CEILING functionality
      * @var string
      */
-    const CEIL="ceil";
+    public const CEIL = "ceil";
 
     /**
      * Turn on FLOOR functionality
      * @var string
      */
-    const ROUND="round";
+    public const ROUND = "round";
 
     /**
      * @var numeric
@@ -41,51 +50,43 @@ class MRounder
     public $mode;
 
 
-    /**
-     * @param numeric $multiple
-     */
-    public function __construct( $multiple = 1, $mode = null )
+    public function __construct(mixed $multiple = 1, mixed $mode = null)
     {
-        if (is_numeric($multiple))
+        if (is_numeric($multiple)) {
             $this->multiple = $multiple;
-        else
+        } else {
             throw new MRoundInvalidArgumentException("Parameter 'multiple' must be numeric.");
+        }
 
 
-        if (in_array($mode, [ null, static::FLOOR, static::CEIL, static::ROUND ]))
-            $this->mode = $mode ?: static::ROUND;
-        else
+        if ($mode === null) {
+            $this->mode = static::ROUND;
+        } elseif (in_array($mode, [static::FLOOR, static::CEIL, static::ROUND], true)) {
+            $this->mode = $mode;
+        } else {
             throw new MRoundInvalidArgumentException("Parameter 'mode' must be one of 'round', floor', or 'ceil'.");
+        }
     }
 
 
     /**
      * Accepts a number or array with numbers.
-     * @param numeric[] $number
      */
-    public function __invoke( $number )
+    public function __invoke(mixed $number): mixed
     {
         if (is_numeric($number)):
-            if ($this->multiple == 0)
+            if ($this->multiple == 0) {
                 return 0;
+            }
 
-            switch ($this->mode):
-                case static::ROUND:
-                    return mround( $number, $this->multiple );
-
-                case static::FLOOR:
-                    return mfloor( $number, $this->multiple );
-
-                case static::CEIL:
-                    return mceil( $number, $this->multiple );
-
-                default:
-                    throw new MRoundUnexpectedValueException("Unexpected round mode value");
-
-            endswitch;
-
-        elseif (is_array( $number)):
-            return array_map($this, $number);
+            return match ($this->mode) {
+                static::ROUND => mround($number, $this->multiple),
+                static::FLOOR => mfloor($number, $this->multiple),
+                static::CEIL => mceil($number, $this->multiple),
+                default => throw new MRoundUnexpectedValueException("Unexpected round mode value"),
+            };
+        elseif (is_array($number)):
+            return array_map(fn($item) => $this($item), $number);
         endif;
 
         throw new MRoundInvalidArgumentException("Number must be numeric or array of numbers.");
