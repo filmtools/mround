@@ -16,21 +16,17 @@ build:
 
     nodes:
 
-        php70:
+        php83:
             environment:
-                php: 7.0
+                php: 8.3
 
-        php71:
+        php84:
             environment:
-                php: 7.1
+                php: 8.4
 
-        php72:
+        php85:
             environment:
-                php: 7.2
-
-        php73:
-            environment:
-                php: 7.3
+                php: 8.5
 
 
 checks:
