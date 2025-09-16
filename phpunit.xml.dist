@@ -1,29 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<phpunit colors="true"
-         stopOnFailure="true"
-         bootstrap="tests/bootstrap.php"
-         beStrictAboutCoversAnnotation="true"
-         verbose="true">
-
-	<testsuites>
-		<testsuite name="Test Suite">
-			<directory>tests/src</directory>
-		</testsuite>
-	</testsuites>
-
-	<filter>
-		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory>src</directory>
-		</whitelist>
-	</filter>
-
-	<logging>
-		<log type="coverage-text"   target="php://stdout" showUncoveredFiles="true" />
-		<log type="coverage-clover" target="tests/build/clover.xml"/>
-		<log type="coverage-html"   target="tests/build/html/"/>
-		<log type="testdox-html"    target="tests/build/testdox.html"/>
-		<log type="testdox-text"    target="tests/build/testdox.txt"/>
-	</logging>
-
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         colors="true"
+         stopOnFailure="false"
+         bootstrap="vendor/autoload.php"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/12.0/phpunit.xsd"
+         cacheDirectory=".phpunit.cache"
+         beStrictAboutCoverageMetadata="true"
+         requireCoverageMetadata="false"
+         displayDetailsOnIncompleteTests="true"
+         displayDetailsOnSkippedTests="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnTestsThatTriggerNotices="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         failOnEmptyTestSuite="true"
+         failOnIncomplete="false"
+         failOnRisky="true"
+         failOnWarning="true">
+  <coverage>
+    <report>
+      <clover outputFile="tests/build/clover.xml"/>
+      <html outputDirectory="tests/build/html/"/>
+      <text outputFile="php://stdout" showUncoveredFiles="true"/>
+    </report>
+  </coverage>
+  <testsuites>
+    <testsuite name="Unit">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+  <logging>
+    <testdoxHtml outputFile="tests/build/testdox.html"/>
+    <testdoxText outputFile="tests/build/testdox.txt"/>
+  </logging>
+  <source>
+    <include>
+      <directory>src</directory>
+    </include>
+  </source>
 </phpunit>

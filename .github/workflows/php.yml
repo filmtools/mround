@@ -1,0 +1,56 @@
+# php.yml
+
+# Stolen from osteel’s article:
+# A GitHub workflow to check the compatibility of your PHP package with a range of dependency versions
+# https://tech.osteel.me/posts/a-github-workflow-to-check-the-compatibility-of-your-php-package-with-a-range-of-dependency-versions
+
+name: Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  phpunit:
+    name: Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
+          - "8.4"
+          - "8.5"
+        dependency-versions:
+          - "lowest"
+          - "highest"
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: none
+
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v2
+        with:
+          dependency-versions: ${{ matrix.dependency-versions }}
+
+      - name: Run PHPUnit
+        run: vendor/bin/phpunit tests --no-coverage
+
+      - name: Run phpstan
+        run: vendor/bin/phpstan analyse

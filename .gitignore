@@ -43,10 +43,13 @@ Icon
 # Workflow files     #
 ######################
 _schrott
+.env
 vendor
+node_modules
 var/*
-logs/*
-tests/build
-build
+tests/build/*
 phpunit.xml
-* Alias
+.phpunit.result.cache
+phpstan.neon
+.php-cs-fixer.php
+.php-cs-fixer.cache
