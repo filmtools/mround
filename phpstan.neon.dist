@@ -1,0 +1,10 @@
+# phpstan.neon.dist
+
+
+parameters:
+    treatPhpDocTypesAsCertain: false
+    level: 9
+    paths:
+        - src
+        - tests
+

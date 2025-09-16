@@ -1,67 +1,76 @@
 <?php
+
+/**
+ * This file is part of filmtools/mround
+ *
+ * Rounds a number to the nearest multiple of another number (mround, ceiling, floor)
+ *
+ * For the full copyright and license information, please view the LICENSE.txt
+ * file that was distributed with this source code.
+ */
+
 namespace tests;
 
 use FilmTools\MRounder\MRounder;
 use FilmTools\MRounder\MRoundInvalidArgumentException;
 use FilmTools\MRounder\MRoundUnexpectedValueException;
 use FilmTools\MRounder\MRoundExceptionInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class MRounderTest extends \PHPUnit\Framework\TestCase
 {
-
-    /**
-     * @dataProvider provideVariousParameters
-     */
-    public function testSimple( $input, $multiple, $mode, $expected)
+    #[DataProvider('provideVariousParameters')]
+    public function testSimple(mixed $input, float|int $multiple, ?string $mode, mixed $expected): void
     {
-        $mround = new MRounder( $multiple, $mode );
+        $mRounder = new MRounder($multiple, $mode);
 
-        $result = $mround( $input );
-        $this->assertEquals( $result, $expected);
+        $result = $mRounder($input);
+        $this->assertEquals($result, $expected);
     }
 
 
-    /**
-     * @dataProvider provideInvalidArgumentsForCtor
-     */
-    public function testInvalidArgumentExceptionOnCtorArgument( $may_be_invalid_number, $may_be_invalid_mode)
+    #[DataProvider('provideInvalidArgumentsForCtor')]
+    public function testInvalidArgumentExceptionOnCtorArgument(mixed $may_be_invalid_number, mixed $may_be_invalid_mode): void
     {
-        $this->expectException( \InvalidArgumentException::class );
-        $this->expectException( MRoundInvalidArgumentException::class );
-        $mround = new MRounder( $may_be_invalid_number, $may_be_invalid_mode );
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(MRoundInvalidArgumentException::class);
+        new MRounder($may_be_invalid_number, $may_be_invalid_mode);
     }
 
 
 
 
-    public function testInvalidArgumentExceptionOnInvokation()
+    public function testInvalidArgumentExceptionOnInvokation(): void
     {
-        $mround = new MRounder( 1 );
-        $this->expectException( \InvalidArgumentException::class );
-        $this->expectException( MRoundInvalidArgumentException::class );
-        $mround( "string" );
+        $mRounder = new MRounder(1);
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(MRoundInvalidArgumentException::class);
+        $mRounder("string");
     }
 
 
-    public function testUnexpectedValueExceptionOnInvokation()
+    public function testUnexpectedValueExceptionOnInvokation(): void
     {
-        $mround = new MRounder( 1 );
+        $mRounder = new MRounder(1);
         // Change the value tgo an invalid value
-        $mround->mode = "foo";
-        $this->expectException( \RuntimeException::class );
-        $this->expectException( \UnexpectedValueException::class );
-        $this->expectException( MRoundUnexpectedValueException::class );
-        $mround( 2 );
+        $mRounder->mode = "foo";
+        $this->expectException(\RuntimeException::class);
+        $this->expectException(\UnexpectedValueException::class);
+        $this->expectException(MRoundUnexpectedValueException::class);
+        $mRounder([2]);
     }
 
 
-    public function provideVariousParameters()
+    /**
+     * @return array<int, array{mixed, float|int, string|null, mixed}>
+     */
+    public static function provideVariousParameters(): array
     {
         # - input number
         # - multiple
         # - rounding mode
         # - exepceted result
-        return array(
+        return [
             [ 100,         0,           null,               0],
             [ 100,         0,           null,               0],
             [ 0,           0,           null,               0],
@@ -88,25 +97,28 @@ class MRounderTest extends \PHPUnit\Framework\TestCase
             [ 0.8,        0.2,          null,              0.8],
             [ 0.9,        0.2,          null,              1],
             [ 0.25,       0.125,        null,              0.25],
-            [ 0.16,       1/6,          null,              1/6],
+            [ 0.16,       1 / 6,          null,              1 / 6],
 
             [ [1,2],      1,            null,              [1,2] ],
             [ [0.5,0.2],  1,            null,              [1,0] ],
 
             [ ['foo' => 0.5, 'bar' => 0.2],
-                          1,            null,      ['foo' => 1, 'bar' => 0 ] ]
+                1,            null,      ['foo' => 1, 'bar' => 0 ] ],
 
 
 
-        );
+        ];
     }
 
-    public function provideInvalidArgumentsForCtor()
+    /**
+     * @return array<int, array{mixed, mixed}>
+     */
+    public static function provideInvalidArgumentsForCtor(): array
     {
-        return array(
+        return [
             [ "string", null ],
             [ 99,       "foo" ],
             [ null,     null ],
-        );
+        ];
     }
 }

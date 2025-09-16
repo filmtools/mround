@@ -2,10 +2,12 @@
 
 **PHP implementation for Excel's mround function: Returns a number rounded to the nearest multiple of another number.**
 
-[![Build Status](https://travis-ci.org/filmtools/mround.svg?branch=master)](https://travis-ci.org/filmtools/mround)
+[![Composer Version](https://img.shields.io/packagist/v/filmtools/mround)](https://packagist.org/packages/filmtools/mround )
+[![PHP version](https://img.shields.io/packagist/php-v/filmtools/mround)](https://packagist.org/packages/filmtools/mround )
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/filmtools/mround/php.yml)](https://github.com/filmtools/mround/actions/workflows/php.yml)
+[![Packagist License](https://img.shields.io/packagist/l/filmtools/mround)](LICENSE.txt)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/filmtools/mround/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/filmtools/mround/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/filmtools/mround/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/filmtools/mround/?branch=master)
-[![Build Status](https://scrutinizer-ci.com/g/filmtools/mround/badges/build.png?b=master)](https://scrutinizer-ci.com/g/filmtools/mround/build-status/master)
 
 ## What's in this package?
 
@@ -128,17 +130,17 @@ print_r($sixths);
 // Output:
 Array
 (
-    [0] => 0
-    [0.1] => 0.16666666666667
-    [0.2] => 0.16666666666667
-    [0.3] => 0.33333333333333
-    [0.4] => 0.33333333333333
-    [0.5] => 0.5 # funny, but of course equals 2/6.
-    [0.6] => 0.66666666666667
-    [0.7] => 0.66666666666667
-    [0.8] => 0.83333333333333
-    [0.9] => 0.83333333333333
-    [1] => 1
+	[0] => 0
+	[0.1] => 0.16666666666667
+	[0.2] => 0.16666666666667
+	[0.3] => 0.33333333333333
+	[0.4] => 0.33333333333333
+	[0.5] => 0.5 # funny, but of course equals 2/6.
+	[0.6] => 0.66666666666667
+	[0.7] => 0.66666666666667
+	[0.8] => 0.83333333333333
+	[0.9] => 0.83333333333333
+	[1] => 1
 )
 ```
 
@@ -155,16 +157,16 @@ use FilmTools\MRounder\MRoundInvalidArgumentException;
 use FilmTools\MRounder\MRoundExceptionInterface;
 
 try {
-  	$mround = new MRounder( "foobar" );  
-    // accordingly
-    echo mround( 22, "string");
-    echo mround( "foo", 4);        
+	$mround = new MRounder( "foobar" );  
+	// accordingly
+	echo mround( 22, "string");
+	echo mround( "foo", 4);        
 }
 catch (MRoundExceptionInterface $e) {
-    echo get_class( $e );
+	echo get_class( $e );
 	  echo $e->getMessage();
-    // MRoundInvalidArgumentException
-    // Parameter must be numeric.
+	// MRoundInvalidArgumentException
+	// Parameter must be numeric.
 }
 ```
 
