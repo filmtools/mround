@@ -24,10 +24,6 @@ build:
             environment:
                 php: 8.4
 
-        php85:
-            environment:
-                php: 8.5
-
 
 checks:
     php:
